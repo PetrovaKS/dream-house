@@ -1,0 +1,21 @@
+:root {
+  --font-family: 'Open Sans', sans-serif;
+  --second-family: 'Font Awesome 5 Brands', sans-serif;
+  --third-family: 'Bruno Ace', sans-serif;
+  --font3: 'Roboto', sans-serif;
+  --font4: 'FontAwesome', sans-serif;
+  --font5: 'Bruno Ace SC', sans-serif;
+
+  --color-dark: #000000;
+  --color-background: rgba(0, 0, 0, 0.5);
+  --color-dark-background: rgba(0, 0, 0, 0.65);
+  --color-border: rgba(0, 0, 0, 0.15);
+  --color-text: #fff;
+  --color-text-light: rgba(255, 255, 255, 0.5);
+  --color-text-semi-light: rgba(255, 255, 255, 0.25);
+  --color-accent: #ffac30;
+  --color-error: #ff4242;
+}
+
+@media (prefers-color-scheme: dark) {
+}
