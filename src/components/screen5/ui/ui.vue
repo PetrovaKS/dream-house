@@ -155,10 +155,10 @@ onMounted(async () => {
         dream house:
       </div>
       <div class="steps__icon">
-        <img :src="`/src/images/steps/${sliderValue}.svg`" alt="icon" />
+        <img :src="`/images/steps/${sliderValue}.svg`" alt="icon" />
       </div>
       <div class="steps__title">{{ steps[sliderValue - 1].title }}</div>
-      <img :src="`/src/images/icons/step-arrow.svg`" alt="arrow" />
+      <img src="/src/images/icons/step-arrow.svg" alt="arrow" />
       <div class="steps__description">{{ steps[sliderValue - 1].descriptionText }}</div>
     </div>
 
