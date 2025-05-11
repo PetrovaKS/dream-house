@@ -12,9 +12,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  base: process.env.NODE_ENV === 'production' ? '/dream-house.git/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/dream-house/' : '/',
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true,
   },
 })
