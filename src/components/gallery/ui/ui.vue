@@ -11,23 +11,28 @@ interface Props {
 const props = defineProps<Props>()
 
 const active = ref(1)
+const transitionName = ref('slide-right')
 
 const next = () => {
   if (active.value == Object.keys(props.slides).length) return
+  transitionName.value = 'slide-right'
   ++active.value
 }
 
 const previous = () => {
   if (active.value == 1) return
+  transitionName.value = 'slide-left'
   active.value = active.value - 1
 }
 </script>
 
 <template>
   <div>
-    <Transition>
-      <component :is="props.slides[active]" :key="active"></component>
-    </Transition>
+    <div class="slides-container">
+      <Transition :name="transitionName">
+        <component :is="props.slides[active]" :key="active" class="slides-component"></component>
+      </Transition>
+    </div>
 
     <BottomForm></BottomForm>
     <Teleport defer to="#pag-wrapper">
@@ -42,13 +47,52 @@ const previous = () => {
 </template>
 
 <style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
+.slides-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0.7;
+.slides-component {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.slide-right-enter-active,
+.slide-left-enter-active {
+  transition: transform 0.5s ease;
+  z-index: 2; /* Новый компонент поверх старого */
+}
+
+/* Анимация для прокрутки вниз - новый элемент снизу */
+.slide-right-enter-from {
+  transform: translateX(100%);
+}
+.slide-right-enter-to {
+  transform: translateX(0);
+}
+
+/* Анимация для прокрутки вверх - новый элемент сверху */
+.slide-left-enter-from {
+  transform: translateX(-100%);
+}
+.slide-left-enter-to {
+  transform: translateX(0);
+}
+
+.slide-right-leave-active,
+.slide-left-leave-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Старый компонент под новым */
+  pointer-events: none; /* Предотвращаем перехват событий мыши */
+  transition: opacity 0.5s ease; /* Добавляем transition для opacity */
 }
 </style>

@@ -38,6 +38,7 @@ const previous = () => {
   lastScrollDirection.value = 'up'
   active.value = active.value - 1
 }
+
 const debpuncedFn = useDebounceFn(
   (e: WheelEvent) => {
     if (e.deltaY > 0) {
@@ -53,6 +54,12 @@ const debpuncedFn = useDebounceFn(
 
 const onWheel = (e: WheelEvent) => {
   debpuncedFn(e)
+}
+
+const setActive = (n: number) => {
+  if (n > active.value) lastScrollDirection.value = 'down'
+  if (n < active.value) lastScrollDirection.value = 'up'
+  active.value = n
 }
 
 const handelSubmitForm = (name: string, phone: string) => {
@@ -87,7 +94,7 @@ onBeforeUnmount(() => {
           class="pagination__dot"
           :class="active == n ? 'pagination__dot--active' : ''"
           model-value="n"
-          @click="active = n"
+          @click="setActive(n)"
         >
           <ellipse cx="12.5" cy="12.5" rx="3.5" ry="3.5" transform="rotate(90 12.5 12.5)" />
           <path
