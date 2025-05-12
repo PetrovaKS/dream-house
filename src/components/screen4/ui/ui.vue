@@ -68,7 +68,7 @@ onMounted(async () => {
     document.head.appendChild(style)
   }
 
-  const slider: HTMLElement | null = document.querySelector('#slider')
+  const slider: HTMLElement | null = document.querySelector('.wrapper-4 #slider')
 
   if (slider instanceof HTMLElement) {
     slider.style.position = 'relative'
@@ -90,7 +90,9 @@ onMounted(async () => {
     )
   }
 
-  const tooltipText: HTMLElement | null = document.querySelector('#slider .rs-tooltip-text')
+  const tooltipText: HTMLElement | null = document.querySelector(
+    '.wrapper-4 #slider .rs-tooltip-text',
+  )
   if (tooltipText instanceof HTMLElement) {
     tooltipText.style.cssText += `
       font-family: Bruno Ace;
@@ -104,7 +106,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper-4">
     <round-slider
       id="slider"
       min="0"
@@ -178,7 +180,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.wrapper {
+.wrapper-4 {
   background:
     linear-gradient(var(--color-background)),
     url('/src/images/screens/screen4.jpg') no-repeat center right;

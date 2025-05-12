@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { useDebounceFn } from '@vueuse/core'
 import type { Component } from 'vue'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { MainLayout } from '../layouts'
 import { CallIcon } from '../components/call-icon'
 import { Screen1 } from '../components/screen1'
@@ -20,24 +21,38 @@ const screens = {
   5: Screen5,
   6: Screen6,
 } as Record<number, Component>
+const lastScrollDirection = ref('down')
+
+const transitionName = computed(() => {
+  return lastScrollDirection.value === 'down' ? 'slide-down' : 'slide-up'
+})
 
 const next = () => {
   if (active.value == 6) return
+  lastScrollDirection.value = 'down'
   ++active.value
 }
 
 const previous = () => {
   if (active.value == 1) return
+  lastScrollDirection.value = 'up'
   active.value = active.value - 1
 }
+const debpuncedFn = useDebounceFn(
+  (e: WheelEvent) => {
+    if (e.deltaY > 0) {
+      next()
+    }
+    if (e.deltaY < 0) {
+      previous()
+    }
+  },
+  500,
+  { maxWait: 1000 },
+)
 
 const onWheel = (e: WheelEvent) => {
-  if (e.deltaY > 0) {
-    next()
-  }
-  if (e.deltaY < 0) {
-    previous()
-  }
+  debpuncedFn(e)
 }
 
 const handelSubmitForm = (name: string, phone: string) => {
@@ -84,14 +99,67 @@ onBeforeUnmount(() => {
     </template>
 
     <template #content>
-      <component :is="screens[active]"></component>
+      <div class="slider-container">
+        <Transition :name="transitionName">
+          <component :is="screens[active]" :key="active" class="slider-component"> </component>
+        </Transition>
 
-      <BottomForm @submit="handelSubmitForm" v-if="active < 3"></BottomForm>
+        <BottomForm @submit="handelSubmitForm" v-if="active < 3 || active == 5"></BottomForm>
+      </div>
     </template>
   </MainLayout>
 </template>
 
 <style scoped>
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slider-component {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.slide-down-enter-active,
+.slide-up-enter-active {
+  transition: transform 0.5s ease;
+  z-index: 2; /* Новый компонент поверх старого */
+}
+
+/* Анимация для прокрутки вниз - новый элемент снизу */
+.slide-down-enter-from {
+  transform: translateY(100%);
+}
+.slide-down-enter-to {
+  transform: translateY(0);
+}
+
+/* Анимация для прокрутки вверх - новый элемент сверху */
+.slide-up-enter-from {
+  transform: translateY(-100%);
+}
+.slide-up-enter-to {
+  transform: translateY(0);
+}
+
+.slide-down-leave-active,
+.slide-up-leave-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Старый компонент под новым */
+  pointer-events: none; /* Предотвращаем перехват событий мыши */
+  transition: opacity 0.5s ease; /* Добавляем transition для opacity */
+}
+
 .pagination {
   display: flex;
   flex-direction: column;

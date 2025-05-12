@@ -22,14 +22,14 @@
         <div class="badge">employees<br /></div>
       </div>
     </div>
-  </div>
 
-  <Teleport defer to="#pag-wrapper">
-    <div class="more-about">
-      <div class="more-about__text">more info about us</div>
-      <img src="/src/images/icons/arrow-white-115.svg" alt="arrow" />
-    </div>
-  </Teleport>
+    <Teleport defer to="#pag-wrapper">
+      <div class="more-about">
+        <div class="more-about__text">more info about us</div>
+        <img src="/src/images/icons/arrow-white-115.svg" alt="arrow" />
+      </div>
+    </Teleport>
+  </div>
 </template>
 
 <style scoped>

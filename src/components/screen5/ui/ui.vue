@@ -79,7 +79,7 @@ watch(sliderValue, (newVal) => {
 onMounted(async () => {
   await nextTick()
 
-  const handle: HTMLElement | null = document.querySelector('#slider .rs-handle')
+  const handle: HTMLElement | null = document.querySelector('.wrapper-5 #slider .rs-handle')
   if (handle instanceof HTMLElement) {
     handle.style.position = 'relative'
     const style = document.createElement('style')
@@ -97,7 +97,9 @@ onMounted(async () => {
     document.head.appendChild(style)
   }
 
-  const tooltipText: HTMLElement | null = document.querySelector('#slider .rs-tooltip-text')
+  const tooltipText: HTMLElement | null = document.querySelector(
+    '.wrapper-5 #slider .rs-tooltip-text',
+  )
   if (tooltipText instanceof HTMLElement) {
     tooltipText.style.cssText += `
       font-family: Bruno Ace;
@@ -111,7 +113,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper-5">
     <div id="slider-container">
       <round-slider
         ref="slider"
@@ -163,12 +165,12 @@ onMounted(async () => {
       <div class="steps__description">{{ steps[sliderValue - 1].descriptionText }}</div>
     </div>
 
-    <BottomForm></BottomForm>
+    <!-- <BottomForm></BottomForm> -->
   </div>
 </template>
 
 <style scoped>
-.wrapper {
+.wrapper-5 {
   background:
     linear-gradient(var(--color-background)),
     url('/src/images/screens/screen1.jpg') no-repeat center center;
@@ -215,6 +217,7 @@ onMounted(async () => {
 
 .steps__icon {
   width: 102px;
+  height: 102px;
 }
 
 .steps__title {
@@ -244,6 +247,6 @@ onMounted(async () => {
   color: var(--color-text);
   position: absolute;
   left: 0;
-  top: -200px;
+  top: -120px;
 }
 </style>

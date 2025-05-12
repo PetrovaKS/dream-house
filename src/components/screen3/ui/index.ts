@@ -1,1 +1,5 @@
+export { default as Main } from './main.vue'
+export { default as Elite } from './elite.vue'
+export { default as Vip } from './vip.vue'
+export { default as Extra } from './extra.vue'
 export { default as Screen3 } from './ui.vue'
