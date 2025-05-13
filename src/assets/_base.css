@@ -13,3 +13,35 @@ input {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
+
+.gallery-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.gallery-dot ellipse {
+  fill: var(--color-text);
+  transition: 0.3s;
+}
+
+.gallery-dot:hover ellipse {
+  fill: var(--color-accent);
+}
+
+.gallery-dot path {
+  stroke: var(--color-text);
+  transition: 0.3s;
+}
+
+.gallery-dot:hover path {
+  stroke: var(--color-accent);
+}
+
+.gallery-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
