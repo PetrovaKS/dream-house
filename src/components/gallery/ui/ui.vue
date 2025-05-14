@@ -28,6 +28,8 @@ const previous = () => {
 
 <template>
   <div>
+    <div id="back-to-screen3"></div>
+
     <div class="slides-container">
       <Transition :name="transitionName">
         <component :is="props.slides[active]" :key="active" class="slides-component"></component>
@@ -35,13 +37,15 @@ const previous = () => {
     </div>
 
     <BottomForm></BottomForm>
+
     <Teleport defer to="#pag-wrapper">
       <GalleryPagination
         :countSlides="Object.keys(props.slides).length"
         :currentSlide="active"
         @next="next"
         @previous="previous"
-      ></GalleryPagination>
+      >
+      </GalleryPagination>
     </Teleport>
   </div>
 </template>
@@ -94,5 +98,13 @@ const previous = () => {
   z-index: 1; /* Старый компонент под новым */
   pointer-events: none; /* Предотвращаем перехват событий мыши */
   transition: opacity 0.5s ease; /* Добавляем transition для opacity */
+}
+
+#back-to-screen3 {
+  position: absolute;
+  top: 120px;
+  right: 178px;
+  z-index: 4;
+  padding-top: 40px;
 }
 </style>

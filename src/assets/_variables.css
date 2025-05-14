@@ -8,6 +8,7 @@
 
   --color-dark: #000000;
   --color-background: rgba(0, 0, 0, 0.5);
+  --color-semi-dark-background: rgba(0, 0, 0, 0.6);
   --color-dark-background: rgba(0, 0, 0, 0.65);
   --color-border: rgba(0, 0, 0, 0.15);
   --color-text: #fff;

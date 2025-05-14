@@ -65,9 +65,24 @@ const setActive = (n: number) => {
 const handelSubmitForm = (name: string, phone: string) => {
   console.log(name, phone.length)
 }
+const preloadImages = () => {
+  const images = [
+    '/src/images/screens/screen1.jpg',
+    '/src/images/screens/screen2.jpg',
+    '/src/images/screens/screen3.jpg',
+    '/src/images/screens/screen4.jpg',
+    '/src/images/screens/screen5.jpg',
+  ]
+
+  images.forEach((src) => {
+    const img = new Image()
+    img.src = src
+  })
+}
 
 onMounted(() => {
   document.addEventListener('wheel', onWheel)
+  preloadImages()
 })
 
 onBeforeUnmount(() => {

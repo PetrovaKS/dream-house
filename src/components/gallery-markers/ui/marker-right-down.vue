@@ -14,7 +14,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const lineTranslateX = computed(() => {
-  return props.markerTranslateX - 198
+  return props.markerTranslateX + 23
 })
 
 const lineTranslateY = computed(() => {
@@ -114,10 +114,10 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
   >
     <!-- Анимированная линия (горизонтальная часть) -->
     <line
-      y1="-0.5"
-      x2="140"
-      y2="-0.5"
-      transform="matrix(1 8.74228e-08 8.74228e-08 -1 9 42)"
+      x1="212"
+      y1="42.5"
+      x2="72"
+      y2="42.5"
       stroke="#FFAC30"
       stroke-dasharray="140"
       stroke-dashoffset="140"
@@ -149,7 +149,7 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
 
     <!-- Текст, появляющийся вместе с линией -->
     <text
-      x="70"
+      x="212"
       y="77"
       font-family="Open Sans"
       font-size="16"
@@ -157,12 +157,12 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
       fill="#FFF"
       font-weight="600"
       opacity="0"
-      text-anchor="start"
+      text-anchor="end"
     >
-      <tspan x="10" dy="0">{{ props.string1 }}</tspan>
-      <tspan x="10" dy="1.1em" v-if="props.string2">{{ props.string2 }}</tspan>
-      <tspan x="10" dy="1.1em" v-if="props.string3">{{ props.string3 }}</tspan>
-      <tspan x="10" dy="1.1em" v-if="props.string4">{{ props.string4 }}</tspan>
+      <tspan x="212" dy="0">{{ props.string1 }}</tspan>
+      <tspan x="212" dy="1.1em" v-if="props.string2">{{ props.string2 }}</tspan>
+      <tspan x="212" dy="1.1em" v-if="props.string3">{{ props.string3 }}</tspan>
+      <tspan x="212" dy="1.1em" v-if="props.string4">{{ props.string4 }}</tspan>
 
       <animate
         attributeName="opacity"
@@ -188,17 +188,17 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
 
     <!-- Анимированная линия (диагональная часть) -->
     <line
-      y1="-0.5"
-      x2="82.0244"
-      y2="-0.5"
-      transform="matrix(0.866025 -0.5 -0.5 -0.866025 148.913 42)"
+      x1="71.8374"
+      y1="42.433"
+      x2="0.802197"
+      y2="1.42082"
       stroke="#FFAC30"
-      stroke-dasharray="82.0244"
-      stroke-dashoffset="82.0244"
+      stroke-dasharray="85"
+      stroke-dashoffset="85"
     >
       <animate
         attributeName="stroke-dashoffset"
-        from="82.0244"
+        from="85"
         to="0"
         dur="0.3s"
         :begin="`${props.id}.mouseenter + 0.5s`"
@@ -211,7 +211,7 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
       <animate
         attributeName="stroke-dashoffset"
         from="0"
-        to="82.0244"
+        to="85"
         dur="0.3s"
         :begin="`${props.id}.mouseleave + 0.5s`"
         restart="whenNotActive"
@@ -224,10 +224,10 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
 
     <!-- Круг с анимацией появления -->
     <circle
-      cx="4.5"
-      cy="4.5"
+      cx="216.5"
+      cy="42.5"
       r="4.5"
-      transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 9 47)"
+      transform="rotate(-90 216.5 42.5)"
       fill="#FFAC30"
       opacity="0"
     >

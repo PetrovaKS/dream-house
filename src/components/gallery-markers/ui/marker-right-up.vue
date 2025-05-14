@@ -14,11 +14,11 @@ interface Props {
 const props = defineProps<Props>()
 
 const lineTranslateX = computed(() => {
-  return props.markerTranslateX - 198
+  return props.markerTranslateX + 23
 })
 
 const lineTranslateY = computed(() => {
-  return props.markerTranslateY - 67
+  return props.markerTranslateY - 114
 })
 
 const horizontalAnimationId = computed(() => `${props.id}Horizontal`)
@@ -99,7 +99,6 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
       />
     </path>
   </svg>
-
   <!-- line -->
   <svg
     width="221"
@@ -112,12 +111,12 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
       transform: `translateX(${lineTranslateX}px) translateY(${lineTranslateY}px)`,
     }"
   >
-    <!-- Анимированная линия (горизонтальная часть) -->
+    <!-- Горизонтальная линия (справа налево) -->
     <line
       y1="-0.5"
       x2="140"
       y2="-0.5"
-      transform="matrix(1 8.74228e-08 8.74228e-08 -1 9 42)"
+      transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 212 5)"
       stroke="#FFAC30"
       stroke-dasharray="140"
       stroke-dashoffset="140"
@@ -149,20 +148,20 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
 
     <!-- Текст, появляющийся вместе с линией -->
     <text
-      x="70"
-      y="77"
+      x="212"
+      y="-65"
       font-family="Open Sans"
       font-size="16"
       line-height="112%"
       fill="#FFF"
       font-weight="600"
       opacity="0"
-      text-anchor="start"
+      text-anchor="end"
     >
-      <tspan x="10" dy="0">{{ props.string1 }}</tspan>
-      <tspan x="10" dy="1.1em" v-if="props.string2">{{ props.string2 }}</tspan>
-      <tspan x="10" dy="1.1em" v-if="props.string3">{{ props.string3 }}</tspan>
-      <tspan x="10" dy="1.1em" v-if="props.string4">{{ props.string4 }}</tspan>
+      <tspan x="212" dy="0">{{ props.string1 }}</tspan>
+      <tspan x="212" dy="1.1em" v-if="props.string2">{{ props.string2 }}</tspan>
+      <tspan x="212" dy="1.1em" v-if="props.string3">{{ props.string3 }}</tspan>
+      <tspan x="212" dy="1.1em" v-if="props.string4">{{ props.string4 }}</tspan>
 
       <animate
         attributeName="opacity"
@@ -186,12 +185,12 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
       />
     </text>
 
-    <!-- Анимированная линия (диагональная часть) -->
+    <!-- Диагональная линия -->
     <line
       y1="-0.5"
       x2="82.0244"
       y2="-0.5"
-      transform="matrix(0.866025 -0.5 -0.5 -0.866025 148.913 42)"
+      transform="matrix(-0.866025 0.5 0.5 0.866025 72.0874 5)"
       stroke="#FFAC30"
       stroke-dasharray="82.0244"
       stroke-dashoffset="82.0244"
@@ -222,12 +221,12 @@ const diagonalAnimationId = computed(() => `${props.id}Diagonal`)
       />
     </line>
 
-    <!-- Круг с анимацией появления -->
+    <!-- Круг (появляется последним) -->
     <circle
       cx="4.5"
       cy="4.5"
       r="4.5"
-      transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 9 47)"
+      transform="matrix(4.37114e-08 1 1 -4.37114e-08 212 0)"
       fill="#FFAC30"
       opacity="0"
     >

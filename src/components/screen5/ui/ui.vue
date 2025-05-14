@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, onMounted, useTemplateRef, watch } from 'vue'
 import RoundSlider from 'vue-three-round-slider'
-import { BottomForm } from '../../bottom-form'
 
 const sliderValue = ref(1)
 const radius = 117
@@ -73,6 +72,7 @@ const setSliderValue = (value: number) => {
 
 // Синхронизация при внешнем изменении sliderValue
 watch(sliderValue, (newVal) => {
+  sliderValue.value = newVal
   updateActiveMarker(newVal)
 })
 
@@ -156,13 +156,13 @@ onMounted(async () => {
         6 steps to your<br />
         dream house:
       </div>
-      <div class="steps__icon">
+      <div class="steps__icon" v-if="sliderValue">
         <img :src="`/dream-house/images/steps/${sliderValue}.svg`" alt="icon" />
         <!-- <img :src="`/images/steps/${sliderValue}.svg`" alt="icon" /> -->
       </div>
-      <div class="steps__title">{{ steps[sliderValue - 1].title }}</div>
-      <img src="/src/images/icons/step-arrow.svg" alt="arrow" />
-      <div class="steps__description">{{ steps[sliderValue - 1].descriptionText }}</div>
+      <div class="steps__title">{{ steps[sliderValue - 1]?.title }}</div>
+      <img src="/src/images/icons/step-arrow.svg" alt="arrow" v-if="sliderValue" />
+      <div class="steps__description">{{ steps[sliderValue - 1]?.descriptionText }}</div>
     </div>
 
     <!-- <BottomForm></BottomForm> -->
@@ -213,6 +213,7 @@ onMounted(async () => {
   position: relative;
   justify-content: start;
   align-items: center;
+  min-height: 102px;
 }
 
 .steps__icon {
