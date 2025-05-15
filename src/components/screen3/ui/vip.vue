@@ -12,10 +12,16 @@ const slides = {
 } as Record<number, Component>
 
 // Определяем фоновые изображения для каждого компонента
+// const componentBackgrounds = {
+//   1: '/src/images/gallery-vip/vip-1.jpg',
+//   2: '/src/images/gallery-vip/vip-2.png',
+//   3: '/src/images/gallery-vip/vip-3.png',
+// } as Record<number, string>
+
 const componentBackgrounds = {
-  1: '/src/images/gallery-vip/vip-1.jpg',
-  2: '/src/images/gallery-vip/vip-2.png',
-  3: '/src/images/gallery-vip/vip-3.png',
+  1: '/dream-house/images/gallery-vip/vip-1.jpg',
+  2: '/dream-house/images/gallery-vip/vip-2.png',
+  3: '/dream-house/images/gallery-vip/vip-3.png',
 } as Record<number, string>
 </script>
 
