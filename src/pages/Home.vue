@@ -26,13 +26,21 @@ const screens = {
   6: Screen6,
 } as Record<number, Component>
 const lastScrollDirection = ref('down')
+// const componentBackgrounds: ComponentBackgrounds = {
+//   1: '/src/images/screens/screen1.jpg',
+//   2: '/src/images/screens/screen2.jpg',
+//   3: '/src/images/screens/screen3-photo1.jpg',
+//   4: '/src/images/screens/screen4.jpg',
+//   5: '/src/images/screens/screen5.jpg',
+//   6: '/src/images/screens/screen5.jpg',
+// }
 const componentBackgrounds: ComponentBackgrounds = {
-  1: '/src/images/screens/screen1.jpg',
-  2: '/src/images/screens/screen2.jpg',
-  3: '/src/images/screens/screen3-photo1.jpg',
-  4: '/src/images/screens/screen4.jpg',
-  5: '/src/images/screens/screen5.jpg',
-  6: '/src/images/screens/screen5.jpg',
+  1: '/dream-house/images/screens/screen1.jpg',
+  2: '/dream-house/images/screens/screen2.jpg',
+  3: '/dream-house/images/screens/screen3-photo1.jpg',
+  4: '/dream-house/images/screens/screen4.jpg',
+  5: '/dream-house/images/screens/screen5.jpg',
+  6: '/dream-house/images/screens/screen5.jpg',
 }
 const loadedImages = ref<ComponentBackgrounds>({}) // Храним загруженные изображения
 
