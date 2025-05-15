@@ -6,10 +6,10 @@
 
 <style scoped>
 .wrapper {
-  background:
+  /* background:
     linear-gradient(rgba(0, 0, 0, 0.8)),
     url('/src/images/screens/screen5.jpg') no-repeat center center;
-  background-size: cover;
+  background-size: cover; */
   width: 100%;
   height: 100%;
 }

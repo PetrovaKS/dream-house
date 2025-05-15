@@ -34,10 +34,10 @@
 
 <style scoped>
 .wrapper {
-  background:
+  /* background:
     linear-gradient(var(--color-background)),
     url('/src/images/screens/screen2.jpg') no-repeat center center;
-  background-size: cover;
+  background-size: cover; */
   width: 100%;
   height: 100%;
   display: flex;

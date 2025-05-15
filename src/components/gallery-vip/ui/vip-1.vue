@@ -54,8 +54,8 @@ const marker4Props = {
 .slide1 {
   width: 100%;
   height: 100%;
-  background:
+  /* background:
     linear-gradient(var(--color-semi-dark-background)),
-    url('/src/images/gallery-vip/vip-1.jpg') no-repeat center center;
+    url('/src/images/gallery-vip/vip-1.jpg') no-repeat center center; */
 }
 </style>

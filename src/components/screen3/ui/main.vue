@@ -253,7 +253,7 @@ onUnmounted(() => {
   color: var(--color-accent);
   left: 0;
   transform: translateX(-50%);
-  transition: 0.5s;
+  transition: 0.8s;
   transition-delay: 0.3s;
 }
 
@@ -263,7 +263,7 @@ onUnmounted(() => {
 
 .section:hover .half-circle {
   transform: translateX(0);
-  transition: 0.5s;
+  transition: 0.8s;
   transition-delay: 0.8s;
 }
 
@@ -279,7 +279,7 @@ onUnmounted(() => {
 
 .section:hover .content {
   transform: translateX(0);
-  transition: 0.5s;
+  transition: 0.8s;
   transition-delay: 1.2s;
 }
 

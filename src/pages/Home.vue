@@ -12,6 +12,10 @@ import { Screen5 } from '../components/screen5'
 import { Screen6 } from '../components/screen6'
 import { BottomForm } from '../components/bottom-form'
 
+type ComponentBackgrounds = {
+  [key: number]: string
+}
+
 const active = ref(1)
 const screens = {
   1: Screen1,
@@ -22,24 +26,35 @@ const screens = {
   6: Screen6,
 } as Record<number, Component>
 const lastScrollDirection = ref('down')
+const componentBackgrounds: ComponentBackgrounds = {
+  1: '/src/images/screens/screen1.jpg',
+  2: '/src/images/screens/screen2.jpg',
+  3: '/src/images/screens/screen3-photo1.jpg',
+  4: '/src/images/screens/screen4.jpg',
+  5: '/src/images/screens/screen5.jpg',
+  6: '/src/images/screens/screen5.jpg',
+}
+const loadedImages = ref<ComponentBackgrounds>({}) // Храним загруженные изображения
 
 const transitionName = computed(() => {
   return lastScrollDirection.value === 'down' ? 'slide-down' : 'slide-up'
 })
 
-const next = () => {
+const next = async () => {
   if (active.value == 6) return
+  await setBackground(active.value + 1)
   lastScrollDirection.value = 'down'
   ++active.value
 }
 
-const previous = () => {
+const previous = async () => {
   if (active.value == 1) return
+  await setBackground(active.value - 1)
   lastScrollDirection.value = 'up'
   active.value = active.value - 1
 }
 
-const debpuncedFn = useDebounceFn(
+const debouncedFn = useDebounceFn(
   (e: WheelEvent) => {
     if (e.deltaY > 0) {
       next()
@@ -48,41 +63,55 @@ const debpuncedFn = useDebounceFn(
       previous()
     }
   },
-  500,
+  300,
   { maxWait: 1000 },
 )
 
 const onWheel = (e: WheelEvent) => {
-  debpuncedFn(e)
+  debouncedFn(e)
 }
 
-const setActive = (n: number) => {
+const setActive = async (n: number) => {
   if (n > active.value) lastScrollDirection.value = 'down'
   if (n < active.value) lastScrollDirection.value = 'up'
+  await setBackground(n)
   active.value = n
 }
 
 const handelSubmitForm = (name: string, phone: string) => {
   console.log(name, phone.length)
 }
-const preloadImages = () => {
-  const images = [
-    '/src/images/screens/screen1.jpg',
-    '/src/images/screens/screen2.jpg',
-    '/src/images/screens/screen3.jpg',
-    '/src/images/screens/screen4.jpg',
-    '/src/images/screens/screen5.jpg',
-  ]
 
-  images.forEach((src) => {
+async function loadImage(n: number) {
+  return new Promise((resolve, reject) => {
+    if (loadedImages.value[n]) return resolve(n)
+
     const img = new Image()
-    img.src = src
+    img.src = componentBackgrounds[n]
+    img.onload = () => {
+      loadedImages.value[n] = componentBackgrounds[n]
+      resolve(n)
+    }
+    img.onerror = reject
   })
 }
 
-onMounted(() => {
+async function setBackground(n: number) {
+  const imageUrl = componentBackgrounds[n]
+
+  try {
+    if (imageUrl) {
+      await loadImage(n)
+    }
+  } catch (error) {
+    console.error('Ошибка загрузки изображения:', error)
+  }
+}
+
+onMounted(async () => {
   document.addEventListener('wheel', onWheel)
-  preloadImages()
+  await Promise.all(Object.keys(componentBackgrounds).map((k) => loadImage(+k)))
+  console.log(loadedImages.value)
 })
 
 onBeforeUnmount(() => {
@@ -123,7 +152,27 @@ onBeforeUnmount(() => {
     <template #content>
       <div class="slider-container">
         <Transition :name="transitionName">
-          <component :is="screens[active]" :key="active" class="slider-component"> </component>
+          <component
+            :is="screens[active]"
+            :key="active"
+            class="slider-component"
+            :style="
+              active != 6
+                ? {
+                    background: `linear-gradient(to bottom, var(--color-background)), url(${componentBackgrounds[active]})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }
+                : {
+                    background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.8)), url(${componentBackgrounds[active]})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                  }
+            "
+          >
+          </component>
         </Transition>
 
         <BottomForm @submit="handelSubmitForm" v-if="active < 3 || active == 5"></BottomForm>
@@ -146,6 +195,7 @@ onBeforeUnmount(() => {
   height: 100%;
   top: 0;
   left: 0;
+  will-change: transform;
 }
 
 .slide-down-enter-active,

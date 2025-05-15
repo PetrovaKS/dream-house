@@ -181,10 +181,10 @@ onMounted(async () => {
 
 <style scoped>
 .wrapper-4 {
-  background:
+  /* background:
     linear-gradient(var(--color-background)),
     url('/src/images/screens/screen4.jpg') no-repeat center right;
-  background-size: cover;
+  background-size: cover; */
   width: 100%;
   height: 100%;
   display: flex;

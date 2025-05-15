@@ -3,9 +3,11 @@ import type { Component } from 'vue'
 import { ref } from 'vue'
 import { BottomForm } from '../../bottom-form'
 import { GalleryPagination } from '../../gallery-pagination'
+import { useImage } from '@vueuse/core'
 
 interface Props {
   slides: Record<number, Component>
+  backgrounds: Record<number, string>
 }
 
 const props = defineProps<Props>()
@@ -15,14 +17,20 @@ const transitionName = ref('slide-right')
 
 const next = () => {
   if (active.value == Object.keys(props.slides).length) return
-  transitionName.value = 'slide-right'
-  ++active.value
+  const loadedImg = useImage({ src: props.backgrounds[active.value + 1] })
+  loadedImg.then(() => {
+    transitionName.value = 'slide-right'
+    ++active.value
+  })
 }
 
 const previous = () => {
   if (active.value == 1) return
-  transitionName.value = 'slide-left'
-  active.value = active.value - 1
+  const loadedImg = useImage({ src: props.backgrounds[active.value - 1] })
+  loadedImg.then(() => {
+    transitionName.value = 'slide-left'
+    active.value = active.value - 1
+  })
 }
 </script>
 
@@ -32,7 +40,15 @@ const previous = () => {
 
     <div class="slides-container">
       <Transition :name="transitionName">
-        <component :is="props.slides[active]" :key="active" class="slides-component"></component>
+        <component
+          :is="props.slides[active]"
+          :key="active"
+          class="slides-component"
+          :style="{
+            background: `linear-gradient(var(--color-semi-dark-background)), url(${props.backgrounds[active]}) no-repeat center bottom`,
+            backgroundSize: 'cover',
+          }"
+        ></component>
       </Transition>
     </div>
 
