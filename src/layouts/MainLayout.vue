@@ -41,6 +41,7 @@
   min-height: 100vh;
   height: 100%;
 }
+
 .container {
   max-width: 1920px;
   width: 100%;

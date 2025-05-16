@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core'
-import type { ComponentPublicInstance, VNodeRef } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
+import type { ScreenType } from '../types'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useScreen3Store } from '../model'
+import { useServicesListStore } from '../../services-list'
 
 const screen3Store = useScreen3Store()
+const servicesListStore = useServicesListStore()
 
 const sections = ref<(HTMLElement | null)[]>([])
+// const serviceComponents = {
+//   Elite: EliteServises,
+//   Vip: VipServises,
+//   Extra: ExtraServises,
+// } as Record<string, Component>
 
 const debouncedFlex = useDebounceFn(
   (el: HTMLElement) => {
@@ -22,6 +30,11 @@ const removeFlex = (el: HTMLElement) => {
 
 const setSectionRef = (index: number) => (el: Element | ComponentPublicInstance | null) => {
   sections.value[index] = el as HTMLElement | null
+}
+
+const openServices = (section: 'Elite' | 'Vip' | 'Extra') => {
+  servicesListStore.activeList = section
+  servicesListStore.isOpen = true
 }
 
 onMounted(() => {
@@ -75,7 +88,7 @@ onUnmounted(() => {
             gallery
             <img src="/src/images/icons/arrow-gold-135.svg" alt="arrow" />
           </div>
-          <div class="content__services-link">
+          <div class="content__services-link" @click="openServices('Elite')">
             list of services
             <img src="/src/images/icons/arrow-white-77.svg" alt="arrow" />
           </div>
@@ -113,7 +126,7 @@ onUnmounted(() => {
             gallery
             <img src="/src/images/icons/arrow-gold-135.svg" alt="arrow" />
           </div>
-          <div class="content__services-link">
+          <div class="content__services-link" @click="openServices('Vip')">
             list of services
             <img src="/src/images/icons/arrow-white-77.svg" alt="arrow" />
           </div>
@@ -151,7 +164,7 @@ onUnmounted(() => {
             gallery
             <img src="/src/images/icons/arrow-gold-135.svg" alt="arrow" />
           </div>
-          <div class="content__services-link">
+          <div class="content__services-link" @click="openServices('Extra')">
             list of services
             <img src="/src/images/icons/arrow-white-77.svg" alt="arrow" />
           </div>

@@ -11,10 +11,14 @@ import { Screen4 } from '../components/screen4'
 import { Screen5 } from '../components/screen5'
 import { Screen6 } from '../components/screen6'
 import { BottomForm } from '../components/bottom-form'
+import { ServicesList } from '../components/services-list'
+import { useServicesListStore } from '../components/services-list'
 
 type ComponentBackgrounds = {
   [key: number]: string
 }
+
+const servicesListStore = useServicesListStore()
 
 const active = ref(1)
 const screens = {
@@ -187,6 +191,10 @@ onBeforeUnmount(() => {
       </div>
     </template>
   </MainLayout>
+
+  <Transition name="fade">
+    <ServicesList v-if="servicesListStore.isOpen"></ServicesList>
+  </Transition>
 </template>
 
 <style scoped>
@@ -273,5 +281,15 @@ onBeforeUnmount(() => {
 
 .pagination__dot--active > path {
   stroke-opacity: 0.3;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
